@@ -1,0 +1,111 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}" title="style" />
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+#popup {
+  top: auto;
+  bottom: 10px;
+  outline: none;
+}
+</style>
+
+</head>
+<body>
+
+<center>
+
+    <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1>Django<span class="logo_colour">project</span></h1>
+          <h2>Simple. Contemporary. Activities. Django Project.</h2>
+        </div>
+      </div>
+
+
+    <div class="container">
+    <form id="myform" method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+        <a href="{%url 'about'%}">About Us</a>&nbsp&nbsp&nbsp&nbsp
+        <a href="{%url 'logout'%}">Logout</a>
+        <h1>Welcome  User {{ email }}</h1>
+    </form>
+
+    <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Cookies !</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="color:black">This site uses cookies so that we can remember you and understand how you interact with our website. This allows us to improve and customize your browsing experience. </p>
+                    <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="agree" onclick="agree()">Agree</button>
+            <button type="button" class="btn btn-secondary"  id="close" onclick="close()">Close</button>
+          </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1>List of Memes url</h1>
+    <div class="memes1">
+    {% for memes in data %}
+        <div class="row">
+        <div class=".col-sm-4"><img src={{memes.url}} alt={{memes.name}} title={{memes.name}} width={{memes.width}} height={{memes.height}} style="width:500px;height:600px;"></div>
+       </div>
+    {% endfor %}
+     {% for memes in data1 %}
+        <div class="row">
+        <div class=".col-sm-4"><img src={{memes.url}} alt={{memes.name}} title={{memes.name}} width={{memes.width}} height={{memes.height}} style="width:500px;height:600px;"></div>
+       </div>
+    {% endfor %}
+    </div>
+
+</div>
+</center>
+</body>
+
+
+<script>
+
+$(function () {
+  setTimeout(function () {
+    $("#popup").modal();
+  }, 2000);
+});
+
+$(function() {
+      $("#agree").click( function()
+           {
+            $("#popup").modal('hide')
+
+           }
+      );
+});
+$(function() {
+      $("#close").click( function()
+           {
+             alert('Sorry');
+             $("#popup").modal('hide')
+            $(location).attr('href','{% url 'logout' %}');
+
+           }
+      );
+});
+</script>
+</html>

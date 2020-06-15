@@ -1,0 +1,16 @@
+
+def register(request):
+   return render(request, 'register.html')
+
+def fnreg(request):
+   name=request.POST.dict().get("name")
+   password = request.POST.dict().get("password")
+   monumber = request.POST.dict().get("m_number")
+   address = request.POST.dict().get("address")
+   request.name=name
+   return render(request, 'home.html', {})
+
+ path('register/', views.register , name='register'),
+    path('fnreg/', views.fnreg , name='fnreg')
+
+<a href="/register" class="button">Register</a>
